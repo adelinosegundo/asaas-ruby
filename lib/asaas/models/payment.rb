@@ -32,5 +32,21 @@ module Asaas
 
     attribute :creditDate, Types::Coercible::String.optional.default(nil)
     attribute :estimatedCreditDate, Types::Coercible::String.optional.default(nil)
+
+    def initialize hash
+      value = hash.delete("value")
+      originalValue = hash.delete("originalValue")
+      interestValue = hash.delete("interestValue")
+      super(hash.merge({
+        value: value,
+        originalValue: originalValue,
+        interestValue: interestValue
+      }))
+    end
+
+    def parse_value value
+      value_string = sprintf("%0.02f", value.to_f)
+      return value_string.to_d
+    end
   end
 end
