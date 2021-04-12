@@ -38,9 +38,9 @@ module Asaas
       originalValue = hash.delete("originalValue")
       interestValue = hash.delete("interestValue")
       super(hash.merge({
-        value: value,
-        originalValue: originalValue,
-        interestValue: interestValue
+        "value" => value,
+        "originalValue" => originalValue,
+        "interestValue" => interestValue
       }))
     end
 
