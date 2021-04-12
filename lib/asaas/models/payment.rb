@@ -6,7 +6,7 @@ module Asaas
     attribute :id, Types::Coercible::String.optional.default(nil)
     attribute :customer, Types::Coercible::String
     attribute :billingType, BillingTypes.optional.default(nil)
-    attribute :value, Types::Coercible::Decimal.optional.default(nil)
+    attribute :value, Types::Coercible::Float.optional.default(nil)
     attribute :dueDate, Types::Coercible::String.optional.default(nil)
     attribute :description, Types::Coercible::String.optional.default(nil)
     attribute :externalReference, Types::Coercible::String.optional.default(nil)
@@ -20,8 +20,8 @@ module Asaas
     attribute :dateCreated, Types::Coercible::String.optional.default(nil)
     attribute :subscription, Types::Coercible::String.optional.default(nil)
     attribute :originalDueDate, Types::Coercible::String.optional.default(nil)
-    attribute :originalValue, Types::Coercible::Decimal.optional.default(nil)
-    attribute :interestValue, Types::Coercible::Decimal.optional.default(nil)
+    attribute :originalValue, Types::Coercible::Float.optional.default(nil)
+    attribute :interestValue, Types::Coercible::Float.optional.default(nil)
     attribute :confirmedDate, Types::Coercible::String.optional.default(nil)
     attribute :paymentDate, Types::Coercible::String.optional.default(nil)
     attribute :clientPaymentDate, Types::Coercible::String.optional.default(nil)
@@ -32,21 +32,5 @@ module Asaas
 
     attribute :creditDate, Types::Coercible::String.optional.default(nil)
     attribute :estimatedCreditDate, Types::Coercible::String.optional.default(nil)
-
-    def initialize hash
-      value = hash.delete("value")
-      originalValue = hash.delete("originalValue")
-      interestValue = hash.delete("interestValue")
-      super(hash.merge({
-        "value" => value,
-        "originalValue" => originalValue,
-        "interestValue" => interestValue
-      }))
-    end
-
-    def parse_value value
-      value_string = sprintf("%0.02f", value.to_f)
-      return BigDecimal(value_string).to_d
-    end
   end
 end
