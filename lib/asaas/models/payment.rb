@@ -46,7 +46,7 @@ module Asaas
 
     def parse_value value
       value_string = sprintf("%0.02f", value.to_f)
-      return value_string.to_d
+      return BigDecimal(value_string).to_d
     end
   end
 end
